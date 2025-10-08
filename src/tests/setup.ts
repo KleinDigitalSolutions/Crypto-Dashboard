@@ -15,10 +15,9 @@ class ResizeObserver {
   disconnect() {}
 }
 
-// @ts-expect-error test environment polyfill
-global.ResizeObserver = ResizeObserver
+global.ResizeObserver = ResizeObserver;
 
-beforeAll(() => server.listen())
+beforeAll(() => server.listen());
 
 afterEach(() => {
   server.resetHandlers()
