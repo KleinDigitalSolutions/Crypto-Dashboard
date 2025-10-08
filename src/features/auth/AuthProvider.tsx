@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
+import { createContext, useContext, useEffect, useState } from 'react';
+
 import { supabase } from '../../lib/supabaseClient';
 
 // 1. Definieren, wie die Daten im Context aussehen

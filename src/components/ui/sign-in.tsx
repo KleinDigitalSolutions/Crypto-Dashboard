@@ -22,7 +22,7 @@ export interface Testimonial {
   text: string;
 }
 
-export interface SignInPageProps {
+interface SignInPageProps {
   title?: React.ReactNode;
   description?: React.ReactNode;
   heroImageSrc?: string;

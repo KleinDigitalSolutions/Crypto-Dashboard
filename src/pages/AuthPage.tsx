@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
-import { SignInPage } from '../components/ui/SignIn';
+
 import type { Testimonial } from '../components/ui/SignIn';
+import { SignInPage } from '../components/ui/SignIn';
+import { supabase } from '../lib/supabaseClient';
 
 const sampleTestimonials: Testimonial[] = [
   {
@@ -97,9 +98,9 @@ const AuthPage = () => {
       {/* We can add a link to switch back to sign in */}
       {isSignUp && (
         <div className="text-center py-4">
-          <a href="#" onClick={(e) => { e.preventDefault(); setIsSignUp(false); }} className="text-violet-400 hover:underline">
+          <button type="button" onClick={() => setIsSignUp(false)} className="text-violet-400 hover:underline">
             Already have an account? Sign In
-          </a>
+          </button>
         </div>
       )}
       {error && <p className="text-red-500 text-center">{error}</p>}

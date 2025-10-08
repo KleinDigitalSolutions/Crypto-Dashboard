@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+
 import { useAuth } from './features/auth/AuthProvider'
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage'))
@@ -15,18 +16,16 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Suspense fallback={<div className="p-8 text-center text-slate-300">Loading…</div>}>
-        <Routes>
-          <Route
-            path="/"
-            element={user ? <DashboardPage /> : <AuthPage />}
-          />
-          <Route path="/coins/:id" element={user ? <CoinPage /> : <AuthPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <Suspense fallback={<div className="p-8 text-center text-slate-300">Loading…</div>}>
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <DashboardPage /> : <AuthPage />}
+        />
+        <Route path="/coins/:id" element={user ? <CoinPage /> : <AuthPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
   )
 }
 
