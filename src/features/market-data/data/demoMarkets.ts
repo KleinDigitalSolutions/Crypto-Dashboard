@@ -1,0 +1,61 @@
+import type { Market } from '../../../services/coingecko'
+
+export const demoMarkets: Market[] = [
+  {
+    id: 'bitcoin',
+    symbol: 'btc',
+    name: 'Bitcoin',
+    image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
+    current_price: 67123,
+    market_cap: 1_320_000_000_000,
+    market_cap_rank: 1,
+    total_volume: 32_120_000_000,
+    price_change_percentage_24h: 1.85,
+  },
+  {
+    id: 'ethereum',
+    symbol: 'eth',
+    name: 'Ethereum',
+    image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
+    current_price: 3450,
+    market_cap: 420_000_000_000,
+    market_cap_rank: 2,
+    total_volume: 16_940_000_000,
+    price_change_percentage_24h: -0.74,
+  },
+  {
+    id: 'solana',
+    symbol: 'sol',
+    name: 'Solana',
+    image: 'https://assets.coingecko.com/coins/images/4128/large/solana.png',
+    current_price: 182.56,
+    market_cap: 82_000_000_000,
+    market_cap_rank: 3,
+    total_volume: 4_320_000_000,
+    price_change_percentage_24h: 3.24,
+  },
+  {
+    id: 'ripple',
+    symbol: 'xrp',
+    name: 'XRP',
+    image: 'https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png',
+    current_price: 0.62,
+    market_cap: 34_800_000_000,
+    market_cap_rank: 4,
+    total_volume: 1_750_000_000,
+    price_change_percentage_24h: 0.94,
+  },
+  {
+    id: 'cardano',
+    symbol: 'ada',
+    name: 'Cardano',
+    image: 'https://assets.coingecko.com/coins/images/975/large/cardano.png',
+    current_price: 0.84,
+    market_cap: 29_400_000_000,
+    market_cap_rank: 5,
+    total_volume: 980_000_000,
+    price_change_percentage_24h: 1.12,
+  },
+]
+
+export default demoMarkets
