@@ -55,17 +55,24 @@ const createTickerUpdate = (payload: BinanceTradePayload): BinanceTickerUpdate =
 }
 
 export class BinanceWebSocketClient {
-  private socket: WebSocket | null = null
-  private reconnectAttempts = 0
-  private heartbeatTimer: number | null = null
-  private lastMessageAt = Date.now()
-  private closedByUser = false
+  private socket: WebSocket | null = null;
+  private reconnectAttempts = 0;
+  private heartbeatTimer: number | null = null;
+  private lastMessageAt = Date.now();
+  private closedByUser = false;
+  private symbols: string[];
+  private handlers: BinanceWebSocketHandlers;
+  private endpoint: string;
 
   constructor(
-    private symbols: string[],
-    private handlers: BinanceWebSocketHandlers,
-    private endpoint: string = DEFAULT_WS_ENDPOINT,
-  ) {}
+    symbols: string[],
+    handlers: BinanceWebSocketHandlers,
+    endpoint: string = DEFAULT_WS_ENDPOINT,
+  ) {
+    this.symbols = symbols;
+    this.handlers = handlers;
+    this.endpoint = endpoint;
+  }
 
   connect() {
     if (!this.symbols.length) {
@@ -150,17 +157,17 @@ export class BinanceWebSocketClient {
   }
 
   private scheduleReconnect() {
-    this.reconnectAttempts += 1
-    const delay = Math.min(1000 * 2 ** (this.reconnectAttempts - 1), 15_000)
-    this.handlers.onStatusChange?.('reconnecting')
+    this.reconnectAttempts += 1;
+    const delay = Math.min(1000 * 2 ** (this.reconnectAttempts - 1), 15_000);
+    this.handlers.onStatusChange?.('reconnecting');
 
     window.setTimeout(() => {
       if (this.closedByUser) {
-        return
+        return;
       }
-      this.connect()
-    }, delay)
+      this.connect();
+    }, delay);
   }
 }
 
-export default BinanceWebSocketClient
+export default BinanceWebSocketClient;
