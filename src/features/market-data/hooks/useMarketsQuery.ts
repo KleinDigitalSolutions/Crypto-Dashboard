@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 import type { GetMarketsParams, Market } from '../../../services/coingecko'
 import { getMarkets } from '../../../services/coingecko'
@@ -9,7 +9,7 @@ export const useMarketsQuery = (params: GetMarketsParams) => {
     queryFn: () => getMarkets(params),
     staleTime: 60_000,
     refetchInterval: 60_000,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 }
 

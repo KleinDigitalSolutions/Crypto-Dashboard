@@ -30,13 +30,13 @@ const MarketsTable = ({ vsCurrency }: MarketsTableProps) => {
   const { data, isLoading, isError, refetch } = useMarketsQuery({ vsCurrency, perPage: 20, page: 1 })
   const [sortKey, setSortKey] = useState<SortKey>('marketCap')
   const [showOnlyTop10, setShowOnlyTop10] = useState(false)
-  const watchlist = useWatchlist()
+  const watchlist = useWatchlist();
 
   const markets = useMemo(() => {
-    const source = data ?? demoMarkets
-    const sorted = [...source].sort(sorters[sortKey])
-    return showOnlyTop10 ? sorted.slice(0, 10) : sorted
-  }, [data, showOnlyTop10, sortKey])
+    const source = Array.isArray(data) ? data : demoMarkets;
+    const sorted = [...source].sort(sorters[sortKey]);
+    return showOnlyTop10 ? sorted.slice(0, 10) : sorted;
+  }, [data, showOnlyTop10, sortKey]);
 
   if (isLoading) {
     return (

@@ -1,17 +1,18 @@
-import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import demoMarkets from '../features/market-data/data/demoMarkets'
-import useMarketsQuery from '../features/market-data/hooks/useMarketsQuery'
-import useWatchlist from '../store/useWatchlist'
+import demoMarkets from '../features/market-data/data/demoMarkets';
+import useMarketsQuery from '../features/market-data/hooks/useMarketsQuery';
+import type { Market } from '../services/coingecko';
+import useWatchlist from '../store/useWatchlist';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
     // Placeholder: actual theme switch can be wired to CSS variables later
-  }
+  };
 
   return (
     <button
@@ -23,42 +24,43 @@ const ThemeToggle = () => {
       <span className="h-2 w-2 rounded-full bg-accent" />
       {theme === 'dark' ? 'Dark' : 'Light'} Mode
     </button>
-  )
-}
+  );
+};
 
 const SearchBar = () => {
-  const [search, setSearch] = useState('')
-  const watchlist = useWatchlist()
-  const navigate = useNavigate()
-  const { data: liveMarkets } = useMarketsQuery({ vsCurrency: 'usd', perPage: 50, page: 1 })
+  const [search, setSearch] = useState('');
+  const watchlist = useWatchlist();
+  const navigate = useNavigate();
+  const { data: liveMarkets } = useMarketsQuery({ vsCurrency: 'usd', perPage: 50, page: 1 });
 
-  const markets = liveMarkets ?? demoMarkets
+  const markets: Market[] = liveMarkets ?? demoMarkets;
 
   const filtered = useMemo(() => {
     if (!search.trim()) {
-      return []
+      return [];
     }
-    const query = search.toLowerCase()
+    const query = search.toLowerCase();
     return markets
-      .filter((market) =>
-        market.name.toLowerCase().includes(query) || market.symbol.toLowerCase().includes(query),
+      .filter(
+        (market) =>
+          market.name.toLowerCase().includes(query) || market.symbol.toLowerCase().includes(query),
       )
-      .slice(0, 6)
-  }, [markets, search])
+      .slice(0, 6);
+  }, [markets, search]);
 
   const handleAdd = (marketId: string) => {
-    const market = markets.find((entry) => entry.id === marketId)
+    const market = markets.find((entry) => entry.id === marketId);
     if (!market) {
-      return
+      return;
     }
-    watchlist.add({ id: market.id, symbol: market.symbol, name: market.name })
-    setSearch('')
-  }
+    watchlist.add({ id: market.id, symbol: market.symbol, name: market.name });
+    setSearch('');
+  };
 
   const handleNavigate = (marketId: string) => {
-    setSearch('')
-    navigate(`/coins/${marketId}`)
-  }
+    setSearch('');
+    navigate(`/coins/${marketId}`);
+  };
 
   return (
     <div className="relative w-full max-w-md">
@@ -75,7 +77,7 @@ const SearchBar = () => {
             <li className="px-4 py-3 text-xs text-slate-400">No matches</li>
           )}
           {filtered.map((market) => {
-            const isWatched = watchlist.items.some((item) => item.id === market.id)
+            const isWatched = watchlist.items.some((item) => item.id === market.id);
             return (
               <li key={market.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
                 <button
@@ -95,13 +97,13 @@ const SearchBar = () => {
                   {isWatched ? 'Tracked' : 'Watch'}
                 </button>
               </li>
-            )
+            );
           })}
         </ul>
       )}
     </div>
-  )
-}
+  );
+};
 
 const AppHeader = () => {
   return (
@@ -130,7 +132,7 @@ const AppHeader = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default AppHeader
+export default AppHeader;

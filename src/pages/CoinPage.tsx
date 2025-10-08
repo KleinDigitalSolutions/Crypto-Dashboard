@@ -17,7 +17,7 @@ const CoinPage = () => {
   const { data: coinDetails, isLoading: isCoinLoading, isError } = useCoinDetailsQuery(id)
 
   const fallbackCoin = useMemo(() => {
-    const source = markets ?? demoMarkets
+    const source = Array.isArray(markets) ? markets : demoMarkets
     return source.find((entry) => entry.id === id)
   }, [id, markets])
 

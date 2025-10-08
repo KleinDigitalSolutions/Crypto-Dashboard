@@ -12,7 +12,7 @@ const WatchlistPanel = () => {
   const markets = liveMarkets ?? demoMarkets
 
   const items = useMemo(() => {
-    if (!markets) {
+    if (!Array.isArray(markets)) {
       return []
     }
     return watchlist.items
